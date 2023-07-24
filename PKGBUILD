@@ -13,11 +13,11 @@
 _linuxprefix=linux-xanmod
 _extraver=extramodules-6.4-MANJARO
 _pkgname=tp_smapi
-_kernver=$(find /usr/lib/modules -type d -iname 6.4.4*xanmod* | rev | cut -d "/" -f1 | rev)
-_extramodules=$(find /usr/lib/modules -type d -iname 6.4.4*xanmod* | rev | cut -d "/" -f1 | rev)
+_kernver=$(find /usr/lib/modules -type d -iname 6.4.5*xanmod* | rev | cut -d "/" -f1 | rev)
+_extramodules=$(find /usr/lib/modules -type d -iname 6.4.5*xanmod* | rev | cut -d "/" -f1 | rev)
 pkgname=$_linuxprefix-tp_smapi
 pkgver=0.43
-pkgrel=64410
+pkgrel=64510
 pkgdesc="Modules for ThinkPad's SMAPI functionality"
 arch=('x86_64')
 url='https://github.com/evgeni/tp_smapi'
@@ -26,7 +26,7 @@ depends=("$_linuxprefix")
 makedepends=('git' "$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 install="${_pkgname}.install"
-_commit=0c3398b1acf2a2cabd9cee91dc3fe3d35805fa8b  # tags/tp-smapi/0.43
+_commit=35be4ab60d2330e4f806dfcbb616629f47e0e7f7  # master
 source=("git+https://github.com/evgeni/tp_smapi#commit=$_commit")
 sha256sums=('SKIP')
 
@@ -45,7 +45,7 @@ build() {
 
   # https://bugs.archlinux.org/task/54975 (kernel has no _GLOBAL_OFFSET_TABLE_):
   # Clear EXTRA_CFLAGS since it defaults to injecting CFLAGS and -fno-plt breaks the modules
-  make HDAPS=1 KVER="$(find /usr/lib/modules -type d -iname 6.4.4*xanmod* | rev | cut -d "/" -f1 | rev)" EXTRA_CFLAGS=
+  make HDAPS=1 KVER="$(find /usr/lib/modules -type d -iname 6.4.5*xanmod* | rev | cut -d "/" -f1 | rev)" EXTRA_CFLAGS=
 }
 
 package() {
