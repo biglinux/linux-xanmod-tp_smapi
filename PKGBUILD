@@ -13,7 +13,7 @@
 _linuxprefix=linux-xanmod
 _extraver=extramodules-6.6-MANJARO
 _pkgname=tp_smapi
-_kernver=$(find /usr/lib/modules -type d -iname 6.6.15*xanmod* | rev | cut -d "/" -f1 | rev)
+_kernver="$(cat /usr/src/${_linuxprefix}/version)"
 _extramodules=$(readlink -f "/usr/lib/modules/${_kernver}/extramodules")
 pkgname=$_linuxprefix-tp_smapi
 pkgver=0.44
