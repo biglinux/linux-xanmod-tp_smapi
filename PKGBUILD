@@ -11,13 +11,12 @@
 # Contributor: Ignas Anikevicius <anikevicius ð gmail đ com>
 
 _linuxprefix=linux-xanmod
-_extraver=extramodules-6.6-MANJARO
 _pkgname=tp_smapi
 _kernver="$(cat /usr/src/${_linuxprefix}/version)"
-_extramodules=$(find /usr/lib/modules -type d -iname 6.6.16*xanmod* | rev | cut -d "/" -f1 | rev)
+_extramodules=$(find /usr/lib/modules -type d -iname 6.7.5*xanmod* | rev | cut -d "/" -f1 | rev)
 pkgname=$_linuxprefix-tp_smapi
 pkgver=0.44
-pkgrel=66161
+pkgrel=67510
 pkgdesc="Modules for ThinkPad's SMAPI functionality"
 arch=('x86_64')
 url='https://github.com/evgeni/tp_smapi'
@@ -37,6 +36,14 @@ pkgver() {
 prepare() {
   cd $_pkgname
 
+  local src
+  for src in "${source[@]}"; do
+      src="${src%%::*}"
+      src="${src##*/}"
+      [[ $src = *.patch ]] || continue
+      msg2 "Applying patch: $src..."
+      patch -Np1 < "../$src"
+  done
 }
 
 build() {
